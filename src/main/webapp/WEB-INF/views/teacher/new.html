@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New teacher</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <h3>Create new teacher</h3>
+    <form th:method="POST" th:action="@{/teachers}" th:object="${teacher}">
+        <label for="id"><b>Id:</b> </label>
+        <input class="form-control" type="text" th:field="*{id}" id="id" placeholder="Enter id"/>
+        <br>
+        <label for="position"><b>Position:</b> </label>
+        <input class="form-control" type="text" th:field="*{position}" id="position" placeholder="Enter position"/>
+        <br>
+        <label for="firstName"><b>First name:</b> </label>
+        <input class="form-control" type="text" th:field="*{firstName}" id="firstName" placeholder="Enter first name"/>
+        <br>
+        <label for="lastName"><b>Last name:</b> </label>
+        <input class="form-control" type="text" th:field="*{lastName}" id="lastName" placeholder="Enter last name"/>
+        <br>
+        <label for="age"><b>Age:</b> </label>
+        <input class="form-control" type="text" th:field="*{age}" id="age" placeholder="Enter age"/>
+        <br>
+        <label for="time"><b>Timetable id:</b> </label>
+        <input class="form-control" type="text" th:field="*{timetableId}" id="time" placeholder="Enter timetable"/>
+        <br>
+        <label for="email"><b>Email:</b> </label>
+        <input class="form-control" type="text" th:field="*{email}" id="email" placeholder="Enter email"/>
+        <br>
+        <input class="btn btn-secondary d-grid gap-2 col-12 mx-auto" type="submit" value="Add new teacher"/>
+    </form>
+</div>
+</body>
+</html>

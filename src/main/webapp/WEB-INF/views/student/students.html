@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Table students</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<table class="table table-bordered table-sm">
+    <thead class="table-active">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">GroupsId</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Age</th>
+        <th scope="col">TimetableId</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student: ${students}">
+        <td>
+            <a class="text-secondary" th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getId()}">id</a>
+        </td>
+        <td th:text="${student.getGroupsId()}"/>
+        <td th:text="${student.getFirstName()}"/>
+        <td th:text="${student.getLastName()}"/>
+        <td th:text="${student.getAge()}"/>
+        <td th:text="${student.getTimetableId()}"/>
+    </tr>
+    </tbody>
+</table>
+<a class="btn-info" th:href="@{/students/new}">Add new students</a>
+</body>
+</html>

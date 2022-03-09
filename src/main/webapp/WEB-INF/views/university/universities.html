@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Table universities</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<table class="table table-bordered table-sm">
+    <thead class="table-active">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="university: ${universities}">
+        <td>
+            <a class="text-secondary" th:href="@{/universities/{id}(id=${university.getId()})}" th:text="${university.getId()}">id</a>
+        </td>
+        <td th:text="${university.getName()}"/>
+    </tr>
+    </tbody>
+</table>
+<a class="btn-info" th:href="@{/universities/new}">Add new university</a>
+</body>
+</html>
