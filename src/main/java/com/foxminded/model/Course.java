@@ -1,10 +1,18 @@
 package com.foxminded.model;
 
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
+@Table(name = "course")
 public class Course {
+
+    @Id
     private int id;
+
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
+
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
 
     public Course() {

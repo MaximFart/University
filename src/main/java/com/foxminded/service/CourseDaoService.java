@@ -2,6 +2,7 @@ package com.foxminded.service;
 
 import com.foxminded.dao.CourseDao;
 import com.foxminded.dao.exception.DaoException;
+import com.foxminded.dao.impl.CourseDaoImpl;
 import com.foxminded.model.Course;
 import com.foxminded.service.exception.UserInputException;
 import org.slf4j.Logger;
@@ -16,10 +17,10 @@ import java.util.stream.Collectors;
 @Service
 public class CourseDaoService {
 
-    private final CourseDao courseDao;
+    private final CourseDaoImpl courseDao;
 
     @Autowired
-    public CourseDaoService(CourseDao courseDao) {
+    public CourseDaoService(CourseDaoImpl courseDao) {
         this.courseDao = courseDao;
     }
 
@@ -39,8 +40,8 @@ public class CourseDaoService {
         return courseDao.getById(id);
     }
 
-    public void update(Course course, int id) {
-        courseDao.update(course, id);
+    public void update(Course course) {
+        courseDao.update(course);
     }
 
     public void delete(int id) throws UserInputException {
@@ -53,7 +54,7 @@ public class CourseDaoService {
         courseDao.delete(id);
     }
 
-    public List<Optional<Course>> findAll() {
+    public List<Course> findAll() {
         return courseDao.findAll();
     }
 }

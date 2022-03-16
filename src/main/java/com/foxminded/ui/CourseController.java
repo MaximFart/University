@@ -24,7 +24,7 @@ public class CourseController {
 
     @GetMapping()
     public String findAll(Model model) {
-        model.addAttribute("courses", courseDaoService.findAll().stream().map(Optional::get).collect(Collectors.toList()));
+        model.addAttribute("courses", courseDaoService.findAll());
         return "course/courses";
     }
     @GetMapping("/{id}")
@@ -51,8 +51,8 @@ public class CourseController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("course") Course course, @PathVariable("id") int id) {
-        courseDaoService.update(course, id);
+    public String update(@ModelAttribute("course") Course course) {
+        courseDaoService.update(course);
         return "redirect:/courses";
     }
 

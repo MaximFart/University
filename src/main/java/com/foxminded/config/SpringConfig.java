@@ -2,12 +2,10 @@ package com.foxminded.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -54,19 +52,26 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/UniversityDB");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("1234");
-
-        return dataSource;
+    public LocalEntityManagerFactoryBean entityManagerFactoryBean() {
+        LocalEntityManagerFactoryBean factory = new LocalEntityManagerFactoryBean();
+        factory.setPersistenceUnitName("university-unit");
+        return factory;
     }
 
-    @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
-    }
+//    @Bean
+//    public DataSource dataSource() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//
+//        dataSource.setDriverClassName("org.postgresql.Driver");
+//        dataSource.setUrl("jdbc:postgresql://localhost:5432/UniversityDB");
+//        dataSource.setUsername("postgres");
+//        dataSource.setPassword("1234");
+//
+//        return dataSource;
+//    }
+//
+//    @Bean
+//    public JdbcTemplate jdbcTemplate() {
+//        return new JdbcTemplate(dataSource());
+//    }
 }
