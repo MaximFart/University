@@ -5,6 +5,7 @@ import com.foxminded.dao.exception.DaoException;
 import com.foxminded.model.Course;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -16,26 +17,29 @@ public class CourseDaoImpl implements CourseDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CourseDaoImpl.class);
 
-    @PersistenceUnit
-    private EntityManagerFactory entityManagerFactory;
+//    @PersistenceUnit
+//    private EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Override
     public void create(Course course) {
         LOGGER.trace("Enter the method");
         LOGGER.debug("Add new course {}", course);
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(course);
         entityManager.getTransaction().commit();
         entityManager.close();
-        LOGGER.trace("Exit the method");
+        LOGGER.trace("Exit from method");
     }
 
     @Override
     public Optional<Course> getById(int id) throws DaoException {
         LOGGER.trace("Enter the method");
         LOGGER.debug("Get course by id {}", id);
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
         Optional<Course> course = Optional.of(entityManager.find(Course.class, id));
         entityManager.close();
         if (!course.isPresent()) {
@@ -51,7 +55,7 @@ public class CourseDaoImpl implements CourseDao {
         LOGGER.trace("Enter the method");
         LOGGER.debug("Update this course {}", course);
         LOGGER.trace("Exit the method");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(course);
         entityManager.getTransaction().commit();
@@ -63,7 +67,7 @@ public class CourseDaoImpl implements CourseDao {
         LOGGER.trace("Enter the method");
         LOGGER.debug("Delete course by id {}", id);
         LOGGER.trace("Exit the method");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.remove(entityManager.find(Course.class, id));
         entityManager.getTransaction().commit();
@@ -75,7 +79,7 @@ public class CourseDaoImpl implements CourseDao {
         LOGGER.trace("Enter the method");
         LOGGER.debug("Get list courses");
         LOGGER.trace("Exit the method");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Course> courses = entityManager.createQuery("Select c from Course c", Course.class).getResultList();
         entityManager.close();
         return courses;
