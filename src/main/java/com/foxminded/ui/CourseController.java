@@ -3,13 +3,11 @@ package com.foxminded.ui;
 import com.foxminded.model.Course;
 import com.foxminded.service.CourseDaoService;
 import com.foxminded.service.exception.UserInputException;
+import com.foxminded.ui.exception.NoEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/courses")
@@ -23,41 +21,41 @@ public class CourseController {
     }
 
     @GetMapping()
-    public String findAll(Model model) {
+    public String findAllCourses(Model model) {
         model.addAttribute("courses", courseDaoService.findAll());
         return "course/courses";
     }
     @GetMapping("/{id}")
-    public String getById(@PathVariable("id") int id, Model model) throws Exception {
-        model.addAttribute("course", courseDaoService.getById(id).get());
+    public String getCourse(@PathVariable("id") int id, Model model) throws Exception {
+        model.addAttribute("course", courseDaoService.getById(id).orElseThrow(NoEntityException::new));
         return "course/show";
     }
 
     @GetMapping("/new")
-    public String newCourse(@ModelAttribute("course") Course course) {
+    public String createCourse(@ModelAttribute("course") Course course) {
         return "course/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("course") Course course) {
+    public String saveCourse(@ModelAttribute("course") Course course) {
         courseDaoService.create(course);
         return "redirect:/courses";
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) throws Exception {
-        model.addAttribute("course", courseDaoService.getById(id).get());
+    public String editCourse(Model model, @PathVariable("id") int id) throws Exception {
+        model.addAttribute("course", courseDaoService.getById(id).orElseThrow(NoEntityException::new));
         return "course/edit";
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("course") Course course) {
+    @PutMapping("/{id}")
+    public String updateCourse(@ModelAttribute("course") Course course) {
         courseDaoService.update(course);
         return "redirect:/courses";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) throws UserInputException {
+    public String deleteCourse(@PathVariable("id") int id) throws UserInputException {
         courseDaoService.delete(id);
         return "redirect:/courses";
     }

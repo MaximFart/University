@@ -17,71 +17,83 @@ public class CourseDaoImpl implements CourseDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CourseDaoImpl.class);
 
-//    @PersistenceUnit
-//    private EntityManagerFactory entityManagerFactory;
-
     @Autowired
     private EntityManager entityManager;
 
     @Override
     public void create(Course course) {
-        LOGGER.trace("Enter the method");
-        LOGGER.debug("Add new course {}", course);
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(course);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        LOGGER.trace("Exit from method");
+        try {
+            LOGGER.trace("Enter the method");
+            LOGGER.debug("Add new course {}", course);
+            entityManager.getTransaction().begin();
+            entityManager.persist(course);
+            entityManager.getTransaction().commit();
+            LOGGER.trace("Exit fromm  method");
+        }catch (Exception e) {
+            entityManager.getTransaction().rollback();
+        }
     }
 
     @Override
     public Optional<Course> getById(int id) throws DaoException {
-        LOGGER.trace("Enter the method");
-        LOGGER.debug("Get course by id {}", id);
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Optional<Course> course = Optional.of(entityManager.find(Course.class, id));
-        entityManager.close();
-        if (!course.isPresent()) {
-            LOGGER.error("This course is empty {}", DaoException.class);
-            throw new DaoException();
+        Optional<Course> course = Optional.empty();
+        try {
+            LOGGER.trace("Enter the method");
+            LOGGER.debug("Get course by id {}", id);
+            entityManager.getTransaction().begin();
+            course = Optional.ofNullable(entityManager.find(Course.class, id));
+            entityManager.getTransaction().commit();
+            if (!course.isPresent()) {
+                LOGGER.error("This course is empty {}", DaoException.class);
+                throw new DaoException();
+            }
+            LOGGER.trace("Exit the method");
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
         }
-        LOGGER.trace("Exit the method");
         return course;
     }
 
     @Override
     public void update(Course course) {
-        LOGGER.trace("Enter the method");
-        LOGGER.debug("Update this course {}", course);
-        LOGGER.trace("Exit the method");
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.merge(course);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+
+        try {
+            LOGGER.trace("Enter the method");
+            LOGGER.debug("Update this course {}", course);
+            entityManager.getTransaction().begin();
+            entityManager.merge(course);
+            entityManager.getTransaction().commit();
+            LOGGER.trace("Exit the method");
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+        }
     }
 
     @Override
     public void delete(int id) {
-        LOGGER.trace("Enter the method");
-        LOGGER.debug("Delete course by id {}", id);
-        LOGGER.trace("Exit the method");
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Course.class, id));
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        try {
+            LOGGER.trace("Enter the method");
+            LOGGER.debug("Delete course by id {}", id);
+            entityManager.getTransaction().begin();
+            entityManager.remove(entityManager.find(Course.class, id));
+            entityManager.getTransaction().commit();
+            LOGGER.trace("Exit the method");
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+        }
     }
 
     @Override
     public List<Course> findAll() {
-        LOGGER.trace("Enter the method");
-        LOGGER.debug("Get list courses");
-        LOGGER.trace("Exit the method");
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Course> courses = entityManager.createQuery("Select c from Course c", Course.class).getResultList();
-        entityManager.close();
+        List<Course> courses = null;
+        try {
+            LOGGER.trace("Enter the method");
+            LOGGER.debug("Get list courses");
+            courses = entityManager.createQuery("from Course", Course.class).getResultList();
+            LOGGER.trace("Exit the method");
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+        }
         return courses;
     }
 }
