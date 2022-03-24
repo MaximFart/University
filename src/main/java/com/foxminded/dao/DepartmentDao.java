@@ -12,9 +12,9 @@ public interface DepartmentDao {
 
     Optional<Department> getById(int id) throws DaoException;
 
-    void update(Department department, int id);
+    void update(Department department);
 
     void delete(int id);
 
-    List<Optional<Department>> findAll();
+    List<Department> findAll();
 }

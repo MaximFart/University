@@ -41,9 +41,6 @@ create table timetable (
     course_id int references course(id) on delete cascade
 );
 
-alter table student add column timetable_id int references timetable(id) on delete cascade;
-alter table teacher add column timetable_id int references timetable(id) on delete cascade;
-
 create table department (
     id serial primary key,
     name varchar(255) not null

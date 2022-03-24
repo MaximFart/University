@@ -1,9 +1,17 @@
 package com.foxminded.model;
 
+
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
+@Table(name = "department")
 public class Department {
+
+    @Id
     private int id;
     private String name;
 

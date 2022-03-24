@@ -6,16 +6,14 @@ public abstract class Person {
     private String firstName;
     private String lastName;
     private int age;
-    private int timetableId;
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, int age, int timetableId) {
+    public Person(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.timetableId = timetableId;
     }
 
     public String getFirstName() {
@@ -42,13 +40,6 @@ public abstract class Person {
         this.age = age;
     }
 
-    public int getTimetableId() {
-        return timetableId;
-    }
-
-    public void setTimetableId(int timetableId) {
-        this.timetableId = timetableId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -56,7 +47,7 @@ public abstract class Person {
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
         return age == person.age && Objects.equals(firstName, person.firstName)
-                && Objects.equals(lastName, person.lastName) && Objects.equals(timetableId, person.timetableId);
+                && Objects.equals(lastName, person.lastName);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Student extends Person {
     }
 
     public Student(String firstName, String lastName, int age, int timetableId, int id, int groupsId) {
-        super(firstName, lastName, age, timetableId);
+        super(firstName, lastName, age);
         this.id = id;
         this.groupsId = groupsId;
     }
@@ -51,7 +51,6 @@ public class Student extends Person {
                 "firstName='" + getFirstName() + '\'' +
                 ", lastName='" + getLastName() + '\'' +
                 ", age=" + getAge() +
-                ", timetable=" + getTimetableId() +
                 "id=" + id +
                 ", groups=" + groupsId +
                 '}';

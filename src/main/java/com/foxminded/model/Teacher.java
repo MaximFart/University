@@ -10,8 +10,8 @@ public class Teacher extends Person {
     public Teacher() {
     }
 
-    public Teacher(String firstName, String lastName, int age, int timetableId, int id, String email, String position) {
-        super(firstName, lastName, age, timetableId);
+    public Teacher(String firstName, String lastName, int age, int id, String email, String position) {
+        super(firstName, lastName, age);
         this.id = id;
         this.email = email;
         this.position = position;
@@ -61,8 +61,8 @@ public class Teacher extends Person {
                 "firstName='" + getFirstName() + '\'' +
                 ", lastName='" + getLastName() + '\'' +
                 ", age=" + getAge() +
-                ", timetable=" + getTimetableId() +
                 "id=" + id +
+
                 ", email='" + email + '\'' +
                 ", position='" + position + '\'' +
                 '}';

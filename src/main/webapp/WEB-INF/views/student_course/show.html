@@ -3,12 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Show student-course</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navigation">
+    <a class="navbar-brand">Entity Management System</a>
+    <button class="navbar-toggler" type="button" data-toggler="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Entities</a>
+                <form class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="@{/courses}">Courses</a>
+                    <a class="dropdown-item" th:href="@{/groups}">Groups</a>
+                    <a class="dropdown-item" th:href="@{/timetables}">Timetable</a>
+                    <a class="dropdown-item" th:href="@{/teachers}">Teacher</a>
+                    <a class="dropdown-item" th:href="@{/student_courses}">Student-course</a>
+                    <a class="dropdown-item" th:href="@{/students}">Student</a>
+                    <a class="dropdown-item" th:href="@{/departments}">Department</a>
+                    <a class="dropdown-item" th:href="@{/universities}">University</a>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
 <div class="d-grid gap-2 col-6 mx-auto">
     <h1>Student-course</h1>
     <hr>

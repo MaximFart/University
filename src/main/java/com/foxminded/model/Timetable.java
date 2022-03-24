@@ -1,15 +1,31 @@
 package com.foxminded.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "timetable")
 public class Timetable {
+
+    @Id
     private int id;
+
+    @Column(name = "date")
     private LocalDate date;
+
+    @Column(name = "groups_id")
     private int groupsId;
+
+    @Column(name = "teacher_id")
     private int teacherId;
+
+    @Column(name = "course_id")
     private int courseId;
 
     public Timetable() {
