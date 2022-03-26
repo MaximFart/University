@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +60,10 @@ public class TimetableDaoService {
             throw new UserInputException();
         }
         timetableDao.deleteById(id);
+    }
+
+    public List<Timetable> findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(Integer teacherId, Integer courseId, LocalDate date, Integer groupsId) {
+        return timetableDao.findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(teacherId, courseId, date, groupsId);
     }
 
     public List<Timetable> findAll() {

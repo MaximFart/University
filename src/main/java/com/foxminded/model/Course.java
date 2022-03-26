@@ -7,18 +7,18 @@ import java.util.Objects;
 public class Course {
 
     @Id
-    private int id;
+    private Integer id;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "description", nullable = false, length = 255)
+    @Column(name = "description")
     private String description;
 
     public Course() {
     }
 
-    public Course(int id, String name, String description) {
+    public Course(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,7 +28,7 @@ public class Course {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

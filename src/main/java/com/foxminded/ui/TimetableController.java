@@ -1,7 +1,6 @@
 package com.foxminded.ui;
 
 import com.foxminded.dao.exception.DaoException;
-import com.foxminded.model.Course;
 import com.foxminded.model.Timetable;
 import com.foxminded.service.TimetableDaoService;
 import com.foxminded.service.exception.UserInputException;
@@ -10,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/timetables")
@@ -27,11 +23,26 @@ public class TimetableController {
 
     @GetMapping()
     public String findAll(Model model) {
+        model.addAttribute("thisTimetable", new Timetable());
         model.addAttribute("timetables", timetableDaoService.findAll());
         return "timetable/timetables";
     }
 
-    @GetMapping("/{id}")
+//    @GetMapping("/dateOf")
+//    public String getTimetableByDate(LocalDate date, Model model) {
+//        date = LocalDate.parse("2022-03-08");
+//        model.addAttribute("timetables", timetableDaoService.findTimetablesByDate(date));
+//        return "timetable/date";
+//    }
+    @PostMapping("/search")
+    public String findTimetablesByDate(@ModelAttribute("thisTimetable") Timetable timetable, Model model) {
+        model.addAttribute("timetables", timetableDaoService.
+                findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(timetable.getTeacherId(), timetable.getCourseId(), timetable.getDate(),
+                        timetable.getGroupsId()));
+        return "timetable/search";
+    }
+
+    @GetMapping("/id/{id}")
     public String getById(@PathVariable("id") int id, Model model) throws Exception {
         model.addAttribute("timetable", timetableDaoService.getById(id).orElseThrow(NoEntityException::new));
         return "timetable/show";
@@ -53,7 +64,7 @@ public class TimetableController {
         return "timetable/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public String update(@ModelAttribute("timetable") Timetable timetable, @PathVariable("id") int id) throws UserInputException, DaoException {
         timetableDaoService.update(timetable, id);
         return "redirect:/timetables";

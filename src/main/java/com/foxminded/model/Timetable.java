@@ -14,24 +14,24 @@ import java.util.Objects;
 public class Timetable {
 
     @Id
-    private int id;
+    private Integer id;
 
     @Column(name = "date")
     private LocalDate date;
 
     @Column(name = "groups_id")
-    private int groupsId;
+    private Integer groupsId;
 
     @Column(name = "teacher_id")
-    private int teacherId;
+    private Integer teacherId;
 
     @Column(name = "course_id")
-    private int courseId;
+    private Integer courseId;
 
     public Timetable() {
     }
 
-    public Timetable(int id, LocalDate date, int groupsId, int teacherId, int courseId) {
+    public Timetable(Integer id, LocalDate date, Integer groupsId, Integer teacherId, Integer courseId) {
         this.id = id;
         this.date = date;
         this.groupsId = groupsId;
@@ -39,11 +39,11 @@ public class Timetable {
         this.courseId = courseId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,19 +55,19 @@ public class Timetable {
         this.date = date;
     }
 
-    public int getGroupsId() {
+    public Integer getGroupsId() {
         return groupsId;
     }
 
-    public void setGroupsId(int groupsId) {
+    public void setGroupsId(Integer groupsId) {
         this.groupsId = groupsId;
     }
 
-    public int getTeacherId() {
+    public Integer getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(int teacherId) {
+    public void setTeacherId(Integer teacherId) {
         this.teacherId = teacherId;
     }
 
@@ -75,7 +75,7 @@ public class Timetable {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 
