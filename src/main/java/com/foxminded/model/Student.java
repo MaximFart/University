@@ -1,58 +1,54 @@
 package com.foxminded.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "student")
 public class Student extends Person {
-    private int id;
-    private int groupsId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne()
+    @JoinColumn(name = "groups_id", nullable = false)
+    private Groups groups;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    List<Course> courses = new ArrayList<>();
 
     public Student() {
     }
 
-    public Student(String firstName, String lastName, int age, int timetableId, int id, int groupsId) {
-        super(firstName, lastName, age);
-        this.id = id;
-        this.groupsId = groupsId;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getGroupsId() {
-        return groupsId;
+    public Groups getGroups() {
+        return groups;
     }
 
-    public void setGroupsId(int groupsId) {
-        this.groupsId = groupsId;
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Student student = (Student) o;
-        return id == student.id && Objects.equals(groupsId, student.groupsId);
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, groupsId);
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "firstName='" + getFirstName() + '\'' +
-                ", lastName='" + getLastName() + '\'' +
-                ", age=" + getAge() +
-                "id=" + id +
-                ", groups=" + groupsId +
-                '}';
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }

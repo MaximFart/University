@@ -1,11 +1,9 @@
 package com.foxminded.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,24 +17,19 @@ public class Timetable {
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "groups_id")
-    private Integer groupsId;
+    @ManyToOne()
+    @JoinColumn(name = "groups_id")
+    private Groups groups;
 
-    @Column(name = "teacher_id")
-    private Integer teacherId;
+    @ManyToOne()
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
-    @Column(name = "course_id")
-    private Integer courseId;
+    @ManyToOne()
+    @JoinColumn(name = "teacher_id")
+    private Course course;
 
     public Timetable() {
-    }
-
-    public Timetable(Integer id, LocalDate date, Integer groupsId, Integer teacherId, Integer courseId) {
-        this.id = id;
-        this.date = date;
-        this.groupsId = groupsId;
-        this.teacherId = teacherId;
-        this.courseId = courseId;
     }
 
     public Integer getId() {
@@ -55,50 +48,27 @@ public class Timetable {
         this.date = date;
     }
 
-    public Integer getGroupsId() {
-        return groupsId;
+    public Groups getGroups() {
+        return groups;
     }
 
-    public void setGroupsId(Integer groupsId) {
-        this.groupsId = groupsId;
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
-    public Integer getTeacherId() {
-        return teacherId;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Timetable timetable = (Timetable) o;
-        return Objects.equals(date, timetable.date);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(date);
-    }
-
-    @Override
-    public String toString() {
-        return "Timetable{" +
-                "date=" + date +
-                ", groups=" + groupsId +
-                ", teacherId=" + teacherId +
-                ", course=" + courseId +
-                '}';
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

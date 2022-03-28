@@ -1,6 +1,5 @@
 package com.foxminded.ui;
 
-import com.foxminded.dao.exception.DaoException;
 import com.foxminded.model.Timetable;
 import com.foxminded.service.TimetableDaoService;
 import com.foxminded.service.exception.UserInputException;
@@ -28,17 +27,11 @@ public class TimetableController {
         return "timetable/timetables";
     }
 
-//    @GetMapping("/dateOf")
-//    public String getTimetableByDate(LocalDate date, Model model) {
-//        date = LocalDate.parse("2022-03-08");
-//        model.addAttribute("timetables", timetableDaoService.findTimetablesByDate(date));
-//        return "timetable/date";
-//    }
     @PostMapping("/search")
     public String findTimetablesByDate(@ModelAttribute("thisTimetable") Timetable timetable, Model model) {
         model.addAttribute("timetables", timetableDaoService.
-                findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(timetable.getTeacherId(), timetable.getCourseId(), timetable.getDate(),
-                        timetable.getGroupsId()));
+                findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(timetable.getTeacher().getId(), timetable.getCourse().getId(), timetable.getDate(),
+                        timetable.getGroups().getId()));
         return "timetable/search";
     }
 
@@ -65,13 +58,13 @@ public class TimetableController {
     }
 
     @PutMapping("/{id}")
-    public String update(@ModelAttribute("timetable") Timetable timetable, @PathVariable("id") int id) throws UserInputException, DaoException {
-        timetableDaoService.update(timetable, id);
+    public String update(@ModelAttribute("timetable") Timetable timetable) {
+        timetableDaoService.update(timetable);
         return "redirect:/timetables";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) throws UserInputException {
+    public String delete(@PathVariable("id") int id) {
         timetableDaoService.delete(id);
         return "redirect:/timetables";
     }

@@ -1,7 +1,6 @@
 package com.foxminded.service;
 
-import com.foxminded.dao.TeacherDao;
-import com.foxminded.dao.exception.DaoException;
+import com.foxminded.jpa.TeacherRepository;
 import com.foxminded.model.Teacher;
 import com.foxminded.service.exception.UserInputException;
 import org.slf4j.Logger;
@@ -15,44 +14,30 @@ import java.util.Optional;
 @Service
 public class TeacherDaoService {
 
-    private final TeacherDao teacherDao;
+    private final TeacherRepository teacherDao;
 
     @Autowired
-    public TeacherDaoService(TeacherDao teacherDao) {
+    public TeacherDaoService(TeacherRepository teacherDao) {
         this.teacherDao = teacherDao;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TeacherDaoService.class);
-
     public void create(Teacher teacher) throws UserInputException {
-        teacherDao.create(teacher);
+        teacherDao.save(teacher);
     }
 
     public Optional<Teacher> getById(int id) throws Exception {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        return teacherDao.getById(id);
+        return teacherDao.findById(id);
     }
 
-    public void update(Teacher teacher, int id) throws UserInputException {
-        teacherDao.update(teacher, id);
+    public void update(Teacher teacher) throws UserInputException {
+        teacherDao.save(teacher);
     }
 
-    public void delete(int id) throws UserInputException {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        teacherDao.delete(id);
+    public void delete(int id){
+        teacherDao.deleteById(id);
     }
 
-    public List<Optional<Teacher>> findAll() {
+    public List<Teacher> findAll() {
         return teacherDao.findAll();
     }
 }

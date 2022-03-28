@@ -1,13 +1,15 @@
 package com.foxminded.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "course")
 public class Course {
 
     @Id
-    private Integer id;
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -15,10 +17,16 @@ public class Course {
     @Column(name = "description")
     private String description;
 
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course")
+    private List<Timetable> timetables = new ArrayList<>();
+
     public Course() {
     }
 
-    public Course(Integer id, String name, String description) {
+    public Course(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,7 +36,7 @@ public class Course {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -46,6 +54,14 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     @Override

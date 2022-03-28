@@ -1,10 +1,19 @@
 package com.foxminded.model;
 
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class Person {
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "age")
     private int age;
 
     public Person() {

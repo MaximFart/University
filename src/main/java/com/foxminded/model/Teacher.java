@@ -1,11 +1,22 @@
 package com.foxminded.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "teacher")
 public class Teacher extends Person {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
     private String position;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Timetable> timetables = new ArrayList<>();
 
     public Teacher() {
     }

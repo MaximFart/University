@@ -1,10 +1,8 @@
 package com.foxminded.service;
 
-import com.foxminded.dao.UniversityDao;
+import com.foxminded.jpa.UniversityRepository;
 import com.foxminded.model.University;
 import com.foxminded.service.exception.UserInputException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,44 +12,30 @@ import java.util.Optional;
 @Service
 public class UniversityDaoService {
 
-    private final UniversityDao universityDao;
+    private final UniversityRepository universityDao;
 
     @Autowired
-    public UniversityDaoService(UniversityDao universityDao) {
+    public UniversityDaoService(UniversityRepository universityDao) {
         this.universityDao = universityDao;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UniversityDaoService.class);
-
-    public void create(University university) throws UserInputException {
-        universityDao.create(university);
+    public void create(University university) {
+        universityDao.save(university);
     }
 
     public Optional<University> getById(int id) throws Exception {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        return universityDao.getById(id);
+        return universityDao.findById(id);
     }
 
-    public void update(University university, int id) throws UserInputException {
-        universityDao.update(university, id);
+    public void update(University university) {
+        universityDao.save(university);
     }
 
     public void delete(int id) throws UserInputException {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        universityDao.delete(id);
+        universityDao.deleteById(id);
     }
 
-    public List<Optional<University>> findAll() {
+    public List<University> findAll() {
         return universityDao.findAll();
     }
 }

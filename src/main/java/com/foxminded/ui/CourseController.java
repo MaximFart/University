@@ -49,13 +49,13 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public String updateCourse(@ModelAttribute("course") Course course) {
+    public String updateCourse(@ModelAttribute("course") Course course) throws Exception {
         courseDaoService.update(course);
         return "redirect:/courses";
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCourse(@PathVariable("id") int id) throws UserInputException {
+    public String deleteCourse(@PathVariable("id") int id) throws Exception {
         courseDaoService.delete(id);
         return "redirect:/courses";
     }

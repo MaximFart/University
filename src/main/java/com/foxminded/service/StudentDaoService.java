@@ -1,7 +1,6 @@
 package com.foxminded.service;
 
-import com.foxminded.dao.StudentDao;
-import com.foxminded.dao.exception.DaoException;
+import com.foxminded.jpa.StudentRepository;
 import com.foxminded.model.Student;
 import com.foxminded.service.exception.UserInputException;
 import org.slf4j.Logger;
@@ -15,44 +14,30 @@ import java.util.Optional;
 @Service
 public class StudentDaoService {
 
-    private final StudentDao studentDao;
+    private final StudentRepository studentDao;
 
     @Autowired
-    public StudentDaoService(StudentDao studentDao) {
+    public StudentDaoService(StudentRepository studentDao) {
         this.studentDao = studentDao;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StudentDaoService.class);
-
     public void create(Student student) throws UserInputException {
-        studentDao.create(student);
+        studentDao.save(student);
     }
 
     public Optional<Student> getById(int id) throws Exception {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        return studentDao.getById(id);
+        return studentDao.findById(id);
     }
 
-    public void update(Student student, int id) throws UserInputException {
-        studentDao.update(student, id);
+    public void update(Student student) throws UserInputException {
+        studentDao.save(student);
     }
 
     public void delete(int id) throws UserInputException {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        studentDao.delete(id);
+        studentDao.deleteById(id);
     }
 
-    public List<Optional<Student>> findAll() {
+    public List<Student> findAll() {
         return studentDao.findAll();
     }
 }

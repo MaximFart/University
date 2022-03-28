@@ -1,7 +1,5 @@
 package com.foxminded.ui;
 
-import com.foxminded.dao.exception.DaoException;
-import com.foxminded.model.Course;
 import com.foxminded.model.Groups;
 import com.foxminded.service.GroupsDaoService;
 import com.foxminded.service.exception.UserInputException;
@@ -50,8 +48,8 @@ public class GroupsController {
     }
 
     @PutMapping("/{id}")
-    public String updateGroup(@ModelAttribute("group") Groups groups, @PathVariable("id") int id) throws UserInputException, DaoException {
-        groupsDaoService.update(groups, id);
+    public String updateGroup(@ModelAttribute("group") Groups groups, @PathVariable("id") int id) throws UserInputException, Exception {
+        groupsDaoService.update(groups);
         return "redirect:/groups";
     }
 

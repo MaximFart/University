@@ -12,6 +12,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -27,7 +28,8 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("com.foxminded")
 @EnableWebMvc
-@EnableJpaRepositories(basePackages = "com.foxminded.dao")
+@EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.foxminded.jpa")
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
@@ -61,10 +63,10 @@ public class SpringConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
-    @Bean
-    public EntityManager entityManager() {
-        return Persistence.createEntityManagerFactory("university-unit").createEntityManager();
-    }
+//    @Bean
+//    public EntityManager entityManager() {
+//        return Persistence.createEntityManagerFactory("university-unit").createEntityManager();
+//    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -85,6 +87,7 @@ public class SpringConfig implements WebMvcConfigurer {
 
         return transactionManager;
     }
+
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
         return new PersistenceExceptionTranslationPostProcessor();
@@ -108,10 +111,5 @@ public class SpringConfig implements WebMvcConfigurer {
         dataSource.setPassword("1234");
 
         return dataSource;
-    }
-
-    @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
     }
 }

@@ -1,6 +1,6 @@
 package com.foxminded.service;
 
-import com.foxminded.dao.DepartmentDao;
+import com.foxminded.jpa.DepartmentRepository;
 import com.foxminded.model.Department;
 import com.foxminded.service.exception.UserInputException;
 import org.slf4j.Logger;
@@ -14,42 +14,27 @@ import java.util.Optional;
 @Service
 public class DepartmentDaoService {
 
-    private final DepartmentDao departmentDao;
+    private final DepartmentRepository departmentDao;
 
     @Autowired
-    public DepartmentDaoService(DepartmentDao departmentDao) {
+    public DepartmentDaoService(DepartmentRepository departmentDao) {
         this.departmentDao = departmentDao;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDaoService.class);
-
     public void create(Department department) throws UserInputException {
-        departmentDao.create(department);
+        departmentDao.save(department);
     }
 
     public Optional<Department> getById(int id) throws Exception {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        return departmentDao.getById(id);
+       return departmentDao.findById(id);
     }
 
     public void update(Department department) throws UserInputException {
-
-        departmentDao.update(department);
+        departmentDao.save(department);
     }
 
     public void delete(int id) throws UserInputException {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        departmentDao.delete(id);
+        departmentDao.deleteById(id);
     }
 
     public List<Department> findAll() {

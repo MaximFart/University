@@ -1,6 +1,8 @@
 package com.foxminded.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +14,12 @@ public class Groups {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "group")
+    private List<Timetable> timetables = new ArrayList<>();
+
+    @OneToMany(mappedBy = "group")
+    private List<Student> students = new ArrayList<>();
 
     public Groups() {
     }

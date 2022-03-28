@@ -4,6 +4,7 @@ import com.foxminded.model.Course;
 import com.foxminded.model.University;
 import com.foxminded.service.UniversityDaoService;
 import com.foxminded.service.exception.UserInputException;
+import com.foxminded.ui.exception.NoEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +24,13 @@ public class UniversityController {
 
     @GetMapping()
     public String findAll(Model model) {
-        model.addAttribute("universities", universityDaoService.findAll().stream().map(Optional::get).collect(Collectors.toList()));
+        model.addAttribute("universities", universityDaoService.findAll());
         return "university/universities";
     }
 
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") int id, Model model) throws Exception {
-        model.addAttribute("university", universityDaoService.getById(id).get());
+        model.addAttribute("university", universityDaoService.getById(id).orElseThrow(NoEntityException::new));
         return "university/show";
     }
     @GetMapping("/new")
@@ -45,13 +46,13 @@ public class UniversityController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) throws Exception {
-        model.addAttribute("university", universityDaoService.getById(id).get());
+        model.addAttribute("university", universityDaoService.getById(id).orElseThrow(NoEntityException::new));
         return "university/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("university") University university, @PathVariable("id") int id) throws UserInputException {
-        universityDaoService.update(university, id);
+    public String update(@ModelAttribute("university") University university) {
+        universityDaoService.update(university);
         return "redirect:/universities";
     }
 

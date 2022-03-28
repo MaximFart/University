@@ -1,7 +1,6 @@
 package com.foxminded.service;
 
-import com.foxminded.dao.TimetableDao;
-import com.foxminded.dao.exception.DaoException;
+import com.foxminded.jpa.TimetableRepository;
 import com.foxminded.model.Timetable;
 import com.foxminded.service.exception.UserInputException;
 import org.slf4j.Logger;
@@ -16,57 +15,34 @@ import java.util.Optional;
 @Service
 public class TimetableDaoService {
 
-    private final TimetableDao timetableDao;
+    private final TimetableRepository timetableRepository;
 
     @Autowired
-    public TimetableDaoService(TimetableDao timetableDao) {
-        this.timetableDao = timetableDao;
+    public TimetableDaoService(TimetableRepository timetableDao) {
+        this.timetableRepository = timetableDao;
     }
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TimetableDaoService.class);
 
     public void create(Timetable timetable) throws UserInputException {
-        timetableDao.save(timetable);
+        timetableRepository.save(timetable);
     }
 
-    public Optional<Timetable> getById(int id) throws Exception {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        return timetableDao.findById(id);
+    public Optional<Timetable> getById(int id) {
+        return timetableRepository.findById(id);
     }
 
-    public void update(Timetable timetable, int id) throws UserInputException, DaoException {
-        if (timetableDao.findById(id).isPresent()) {
-            Timetable ThisTimetable = timetableDao.findById(id).get();
-            ThisTimetable.setDate(timetable.getDate());
-            ThisTimetable.setCourseId(timetable.getCourseId());
-            ThisTimetable.setGroupsId(timetable.getGroupsId());
-            ThisTimetable.setTeacherId(timetable.getTeacherId());
-            timetableDao.save(ThisTimetable);
-        } else {
-            throw new DaoException("Groups is empty: " + timetableDao.getById(id));
-        }
+    public void update(Timetable timetable) {
+        timetableRepository.save(timetable);
     }
 
-    public void delete(int id) throws UserInputException {
-        try {
-            Integer.parseInt(Integer.toString(id));
-        } catch (Exception e) {
-            LOGGER.error("Incorrect input {}", UserInputException.class);
-            throw new UserInputException();
-        }
-        timetableDao.deleteById(id);
+    public void delete(int id) {
+        timetableRepository.deleteById(id);
     }
 
-    public List<Timetable> findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(Integer teacherId, Integer courseId, LocalDate date, Integer groupsId) {
-        return timetableDao.findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(teacherId, courseId, date, groupsId);
+    public List<Timetable> findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(int teacherId, int courseId, LocalDate date, int groupsId) {
+        return timetableRepository.findTimetablesByTeacherIdOrCourseIdOrDateOrGroupsId(teacherId, courseId, date, groupsId);
     }
 
     public List<Timetable> findAll() {
-        return timetableDao.findAll();
+        return timetableRepository.findAll();
     }
 }
