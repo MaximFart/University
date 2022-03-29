@@ -11,7 +11,7 @@ public class Teacher extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String email;
     private String position;
 
@@ -21,18 +21,11 @@ public class Teacher extends Person {
     public Teacher() {
     }
 
-    public Teacher(String firstName, String lastName, int age, int id, String email, String position) {
-        super(firstName, lastName, age);
-        this.id = id;
-        this.email = email;
-        this.position = position;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

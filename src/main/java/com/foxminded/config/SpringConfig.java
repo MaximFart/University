@@ -28,7 +28,6 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("com.foxminded")
 @EnableWebMvc
-@EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.foxminded.jpa")
 public class SpringConfig implements WebMvcConfigurer {
 
@@ -63,16 +62,11 @@ public class SpringConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
-//    @Bean
-//    public EntityManager entityManager() {
-//        return Persistence.createEntityManagerFactory("university-unit").createEntityManager();
-//    }
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.foxminded.model");
+        em.setPackagesToScan(new String[] {"com.foxminded.model"});
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());

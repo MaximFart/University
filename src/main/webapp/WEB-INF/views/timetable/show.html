@@ -45,13 +45,13 @@
     <p class="fw-normal" th:text="${timetable.getDate()}">VALUE</p>
     <hr>
     <b>Groups id:</b>
-    <p class="fw-normal" th:text="${timetable.getGroupsId()}">VALUE</p>
+    <p class="fw-normal" th:text="${timetable.getGroups().getId()}">VALUE</p>
     <hr>
     <b>Teacher id:</b>
-    <p class="fw-normal" th:text="${timetable.getTeacherId()}">VALUE</p>
+    <p class="fw-normal" th:text="${timetable.getTeacher.getId()}">VALUE</p>
     <hr>
     <b>Course id:</b>
-    <p class="fw-normal" th:text="${timetable.getCourseId()}">VALUE</p>
+    <p class="fw-normal" th:text="${timetable.getCourse.getId()}">VALUE</p>
     <hr>
     <a class=" btn btn-secondary d-grid gap-2 col-12 mx-auto" th:href="@{/timetables/{id}/edit(id=${timetable.getId()})}"><b>Edit</b></a>
 

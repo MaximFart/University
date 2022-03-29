@@ -1,11 +1,11 @@
 drop table if exists groups, timetable, course, student, student_course, teacher, department, university cascade;
 create table groups (
-    id integer primary key,
+    id serial primary key,
     name varchar(255) not null
 );
 
 create table course (
-    id serial primary key,
+    id serial  primary key,
     name varchar(255) not null,
     description varchar(255) not null
 );

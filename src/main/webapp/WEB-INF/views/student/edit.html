@@ -26,7 +26,6 @@
                     <a class="dropdown-item" th:href="@{/groups}">Groups</a>
                     <a class="dropdown-item" th:href="@{/timetables}">Timetable</a>
                     <a class="dropdown-item" th:href="@{/teachers}">Teacher</a>
-                    <a class="dropdown-item" th:href="@{/student_courses}">Student-course</a>
                     <a class="dropdown-item" th:href="@{/students}">Student</a>
                     <a class="dropdown-item" th:href="@{/departments}">Department</a>
                     <a class="dropdown-item" th:href="@{/universities}">University</a>
@@ -35,7 +34,7 @@
         </ul>
     </div>
 </nav>
-</body>
+
 <div class="d-grid gap-2 col-6 mx-auto">
     <h3>Edit the student</h3>
     <form th:method="PATCH" th:action="@{/students/{id}(id=${student.getId()})}" th:object="${student}">
@@ -43,7 +42,7 @@
         <input class="form-control" type="text" th:field="*{id}" id="id" placeholder="Enter id"/>
         <br>
         <label for="groupsId"><b>Groups id:</b> </label>
-        <input class="form-control" type="text" th:field="*{groupsId}" id="groupsId" placeholder="Enter groups id"/>
+        <input class="form-control" type="text" th:field="*{groups.id}" id="groupsId" placeholder="Enter groups id"/>
         <br>
         <label for="firstName"><b>First name:</b> </label>
         <input class="form-control" type="text" th:field="*{firstName}" id="firstName" placeholder="Enter first name"/>
@@ -53,9 +52,6 @@
         <br>
         <label for="age"><b>Age:</b> </label>
         <input class="form-control" type="text" th:field="*{age}" id="age" placeholder="Enter age"/>
-        <br>
-        <label for="timetableId"><b>Timetable id:</b> </label>
-        <input class="form-control" type="text" th:field="*{timetableId}" id="timetableId" placeholder="Enter timetable id"/>
         <br>
         <input class="btn btn-secondary d-grid gap-2 col-12 mx-auto" type="submit" value="Update"/>
     </form>

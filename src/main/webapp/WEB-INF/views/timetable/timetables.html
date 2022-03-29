@@ -50,9 +50,9 @@
         <td>
             <a class="text-secondary" th:href="@{/timetables/id/{id}(id=${timetable.getId()})}" th:text="${timetable.getId()}">VALUE</a>
         </td>
-        <td th:text="${timetable.getCourseId()}">VALUE</td>
-        <td th:text="${timetable.getGroupsId()}">VALUE</td>
-        <td th:text="${timetable.getTeacherId()}">VALUE</td>
+        <td th:text="${timetable.getCourse.getId()}">VALUE</td>
+        <td th:text="${timetable.getGroups.getId()}">VALUE</td>
+        <td th:text="${timetable.getTeacher.getId()}">VALUE</td>
         <td th:text="${timetable.getDate()}">VALUE</td>
     </tr>
     </tbody>
@@ -64,13 +64,13 @@
     <input class="form-control" type="text" th:field="*{date}" id="date" placeholder="Enter date"/>
     <br>
     <label for="groupsId"><b>Group id:</b> </label>
-    <input class="form-control" type="text" th:field="*{groupsId}" id="groupsId" placeholder="Enter groups id"/>
+    <input class="form-control" type="text" th:field="*{groups.id}" id="groupsId" placeholder="Enter groups id"/>
     <br>
     <label for="teacherId"><b>Teacher id:</b> </label>
-    <input class="form-control" type="text" th:field="*{teacherId}" id="teacherId" placeholder="Enter teacher id"/>
+    <input class="form-control" type="text" th:field="*{teacher.id}" id="teacherId" placeholder="Enter teacher id"/>
     <br>
     <label for="courseId"><b>Course id:</b> </label>
-    <input class="form-control" type="text" th:field="*{courseId}" id="courseId" placeholder="Enter course id"/>
+    <input class="form-control" type="text" th:field="*{course.id}" id="courseId" placeholder="Enter course id"/>
     <br>
     <input class="btn btn-secondary d-grid gap-2 col-12 mx-auto" type="submit" value="Search"/>
 </form>

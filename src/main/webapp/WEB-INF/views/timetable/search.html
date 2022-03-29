@@ -51,13 +51,14 @@
         <td>
             <a class="text-secondary" th:href="@{/timetables/id/{id}(id=${timetable.getId()})}" th:text="${timetable.getId()}">VALUE</a>
         </td>
-        <td th:text="${timetable.getCourseId()}">VALUE</td>
-        <td th:text="${timetable.getGroupsId()}">VALUE</td>
-        <td th:text="${timetable.getTeacherId()}">VALUE</td>
+        <td th:text="${timetable.getCourse.id}">VALUE</td>
+        <td th:text="${timetable.getGroups.id}">VALUE</td>
+        <td th:text="${timetable.getTeacher.id}">VALUE</td>
         <td th:text="${timetable.getDate()}">VALUE</td>
     </tr>
     </tbody>
 </table>
 
+<a class="btn btn-secondary" th:href="@{/timetables}">Back</a>
 </body>
 </html>

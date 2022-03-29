@@ -35,7 +35,7 @@
         </ul>
     </div>
 </nav>
-</body>
+
 <div class="d-grid gap-2 col-6 mx-auto">
     <h1>Student</h1>
     <hr>
@@ -43,7 +43,7 @@
     <p class="fw-normal" th:text="${student.getId()}">VALUE</p>
     <hr>
     <b>Group id:</b>
-    <p class="fw-normal" th:text="${student.getGroupsId()}">VALUE</p>
+    <p class="fw-normal" th:text="${student.getGroups().getId()}">VALUE</p>
     <hr>
     <b>First name:</b>
     <p class="fw-normal" th:text="${student.getFirstName()}">VALUE</p>

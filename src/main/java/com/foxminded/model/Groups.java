@@ -10,30 +10,26 @@ import java.util.Objects;
 public class Groups {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groups")
     private List<Timetable> timetables = new ArrayList<>();
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groups")
     private List<Student> students = new ArrayList<>();
 
     public Groups() {
     }
 
-    public Groups(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

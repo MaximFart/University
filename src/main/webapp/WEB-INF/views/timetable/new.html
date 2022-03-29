@@ -45,13 +45,13 @@
         <input class="form-control" type="text" th:field="*{date}" id="date" placeholder="Enter date"/>
         <br>
         <label for="groupsId"><b>Group id:</b> </label>
-        <input class="form-control" type="text" th:field="*{groupsId}" id="groupsId" placeholder="Enter groups id"/>
+        <input class="form-control" type="text" th:field="*{groups.id}" id="groupsId" placeholder="Enter groups id"/>
         <br>
         <label for="teacherId"><b>Teacher id:</b> </label>
-        <input class="form-control" type="text" th:field="*{teacherId}" id="teacherId" placeholder="Enter teacher id"/>
+        <input class="form-control" type="text" th:field="*{teacher.id}" id="teacherId" placeholder="Enter teacher id"/>
         <br>
         <label for="courseId"><b>Course id:</b> </label>
-        <input class="form-control" type="text" th:field="*{courseId}" id="courseId" placeholder="Enter course id"/>
+        <input class="form-control" type="text" th:field="*{course.id}" id="courseId" placeholder="Enter course id"/>
         <br>
         <input class="btn btn-secondary d-grid gap-2 col-12 mx-auto" type="submit" value="Add new timetable"/>
     </form>

@@ -35,7 +35,7 @@
         </ul>
     </div>
 </nav>
-</body>
+
 <table class="table table-bordered table-sm">
     <thead class="table-active">
     <tr>
@@ -44,7 +44,6 @@
         <th scope="col">FirstName</th>
         <th scope="col">LastName</th>
         <th scope="col">Age</th>
-        <th scope="col">TimetableId</th>
     </tr>
     </thead>
     <tbody>
@@ -52,7 +51,9 @@
         <td>
             <a class="text-secondary" th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getId()}">id</a>
         </td>
-        <td th:text="${student.getGroupsId()}"/>
+        <td>
+            <a class="text-secondary" th:href="@{/groups/{id}(id=${student.getGroups().getId()})}" th:text="${student.getGroups().getId()}">id</a>
+        </td>
         <td th:text="${student.getFirstName()}"/>
         <td th:text="${student.getLastName()}"/>
         <td th:text="${student.getAge()}"/>
